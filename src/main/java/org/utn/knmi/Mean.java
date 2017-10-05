@@ -1,4 +1,4 @@
-package org.utn.antarctica.mean;
+package main.java.org.utn.knmi;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.LinkedList;

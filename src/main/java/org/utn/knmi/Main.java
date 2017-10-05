@@ -1,4 +1,4 @@
-package org.utn.antarctica.main;
+package main.java.org.utn.knmi;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -8,8 +8,9 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.utn.antarctica.io.IO;
-import org.utn.antarctica.mean.Mean;
+
+import main.java.org.utn.knmi.IO;
+import main.java.org.utn.knmi.Mean;
 
 public class Main {
 
