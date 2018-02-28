@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>main.java.org.utn.knmi</groupId>
 	<artifactId>knmi</artifactId>
-	<version>0.1.201710</version>
+	<version>0.1.201802</version>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>

@@ -2,6 +2,8 @@ package main.java.org.utn.knmi;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -18,7 +20,7 @@ public class Main {
 		Options options = new Options();
 		options.addOption("f",true,"file name");
 		options.addOption("y",true,"year range");
-		options.addOption("o",true,"output xlsx");
+		options.addOption("o",true,"output xlsx file");
 		options.addOption("a",false,"anomaly");
 		
 		CommandLineParser parser = new DefaultParser();
@@ -51,18 +53,16 @@ public class Main {
 			if(fileName != null && yearRange != null){
 				IO file = new IO();
 				Mean mean = new Mean();
-				HashMap<String,LinkedList<String>> map = file.read(fileName);
+				TreeMap<String,LinkedList<String>> map = file.read(fileName);
 				String[] meanArray = mean.mean(map, yearRange);
-				HashMap<String,LinkedList<String>> anomaly = mean.anomaly(map, meanArray, yearRange);		
+				TreeMap<String,LinkedList<String>> anomaly = mean.anomaly(map, meanArray, yearRange);		
 				mean.calculate(file.read(fileName), yearRange);
-				if(outputFileName != null && outputFileName.contains(".xlsx")){
-					Object[][] meanObjectArray = mean.meanObjectArray(meanArray, yearRange);
-					if(a){
-						Object[][] anomalyObjectArray = mean.anomalyObjectArray(anomaly, yearRange);
-						file.write(outputFileName, meanObjectArray, anomalyObjectArray);
-					}else{
-						file.write(outputFileName, meanObjectArray,null);
-					}
+				Object[][] meanObjectArray = mean.meanObjectArray(meanArray, yearRange);
+				if(a){
+					Object[][] anomalyObjectArray = mean.anomalyObjectArray(anomaly, yearRange);
+					file.writeXLS(outputFileName, meanObjectArray, anomalyObjectArray);
+				}else{
+					file.writeXLS(outputFileName, meanObjectArray,null);
 				}
 				
 			}

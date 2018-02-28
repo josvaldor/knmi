@@ -3,12 +3,18 @@ package main.java.org.utn.knmi;
 
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.TreeMap;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -16,26 +22,27 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class IO {
 
-	public HashMap<String, LinkedList<String>> read(String fileName) {
+	public TreeMap<String, LinkedList<String>> read(String fileName) {
 		BufferedReader br = null;
 		FileReader fr = null;
-		HashMap<String, LinkedList<String>> map = new HashMap<String, LinkedList<String>>();
-		LinkedList<String> meanList;
+		TreeMap<String, LinkedList<String>> map = new TreeMap<String, LinkedList<String>>();
+		LinkedList<String> tempuratureList;
 		try {
 			fr = new FileReader(fileName);
 			br = new BufferedReader(fr);
 			String sCurrentLine;
 			while ((sCurrentLine = br.readLine()) != null) {
 				if (!sCurrentLine.contains("#")) {
-					meanList = new LinkedList<String>();
+					tempuratureList = new LinkedList<String>();
 					String[] stringArray = sCurrentLine.trim().split(" ");
 					String year = stringArray[0];
 					for (int i = 1; i < stringArray.length; i++) {
 						if (!stringArray[i].trim().equals("")) {
-							meanList.add(stringArray[i]);
+//							System.out.println(stringArray[i]);
+							tempuratureList.add(stringArray[i]);
 						}
 					}
-					map.put(year, meanList);
+					map.put(year, tempuratureList);
 				}
 			}
 
@@ -61,7 +68,7 @@ public class IO {
 		return map;
 	}
 
-	public void write(String fileName, Object[][] mean, Object[][] anomaly) {
+	public void writeXLS(String fileName, Object[][] mean, Object[][] anomaly) {
 		System.out.println("generating xlsx");
 		XSSFWorkbook workbook = new XSSFWorkbook();
 		XSSFSheet sheet = workbook.createSheet("Mean Monthly Tempurature");
@@ -100,7 +107,7 @@ public class IO {
 			}
 		}
 		try {
-			FileOutputStream outputStream = new FileOutputStream(fileName);
+			FileOutputStream outputStream = new FileOutputStream(fileName+".xlsx");
 			workbook.write(outputStream);
 			workbook.close();
 		} catch (FileNotFoundException e) {

@@ -2,9 +2,10 @@ package main.java.org.utn.knmi;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.TreeMap;
 public class Mean {
 	
-	public void calculate(HashMap<String,LinkedList<String>> map,String yearRange){
+	public void calculate(TreeMap<String,LinkedList<String>> map,String yearRange){
 		String[] yearRangeArray = yearRange.split("-");
 		String yearOneString = yearRangeArray[0];
 		String yearTwoString = yearRangeArray[1];
@@ -41,7 +42,7 @@ public class Mean {
 	/*
 	 * Returns array of Strings 
 	 */
-	public String[] mean(HashMap<String,LinkedList<String>> map,String yearRange){
+	public String[] mean(TreeMap<String,LinkedList<String>> map,String yearRange){
 		String[] yearRangeArray = yearRange.split("-");
 		String yearOneString = yearRangeArray[0];
 		String yearTwoString = yearRangeArray[1];
@@ -74,7 +75,7 @@ public class Mean {
 		return valueArray;
 	}
 	
-	public HashMap<String,LinkedList<String>> anomaly(HashMap<String,LinkedList<String>> map,String[] meanArray,String yearRange){
+	public TreeMap<String,LinkedList<String>> anomaly(TreeMap<String,LinkedList<String>> map,String[] meanArray,String yearRange){
 		String[] yearRangeArray = yearRange.split("-");
 		String yearOneString = yearRangeArray[0];
 		String yearTwoString = yearRangeArray[1];
@@ -130,7 +131,7 @@ public class Mean {
 		return data;
 	}
 	
-	public Object[][] anomalyObjectArray(HashMap<String,LinkedList<String>> map, String yearRange){
+	public Object[][] anomalyObjectArray(TreeMap<String,LinkedList<String>> map, String yearRange){
 		String[] yearRangeArray = yearRange.split("-");
 		String yearOneString = yearRangeArray[0];
 		String yearTwoString = yearRangeArray[1];
